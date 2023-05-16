@@ -1,0 +1,111 @@
+.example-form {
+    min-width: 250px;
+    max-width: 80%;
+    width: 100%;
+    margin: auto;
+    margin-left: 15%;
+    margin-right: 20%;
+  }
+  .example-Table {
+    min-width: 250px;
+    width: 69%;
+    margin: auto;
+    margin-left: 15%;
+    margin-right: 20%;
+    height: auto;
+  }
+  .example-full-width {
+    width: 80%;
+    margin-top: 45px;
+    border-bottom: none;
+  }
+  .searchButton {
+    width: 80px;
+    height: 55px;
+    font-size: 16px;
+    /* margin: 15px; */
+    /* margin-left: -25px */ 
+  }
+  .buttonIcon{
+    margin-top: -25px;
+  padding: -25px;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  button {
+    margin: 16px 8px;
+  }
+  .list-item:hover {
+    background-color: #d3d3d3;
+    cursor: pointer;
+  }
+  .list-item {
+    margin-top: -15.5px;
+  }
+  .label-with-border {
+    border: 1px solid gray;
+    display: inline-block;
+    padding: 4px;
+    margin-bottom: 8px;
+  }
+  .name {
+    margin-bottom: -5px;
+  }
+  .divider{
+    margin: 0px;
+  }
+  .paginator{
+    margin-right: 15%;
+  }
+  .loader {
+    margin: auto;
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid purple;
+    width: 35px;
+    height: 35px;
+    -webkit-animation: spin 0.9s linear infinite; /* Safari */
+    animation: spin 0.9s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .cardDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.card{
+    width: 75%;
+    min-width: 250px;
+    max-width: 80%;
+
+}
+.material-icons{
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: -5px;
+}
+.text{
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: -20px;
+}
+.subText{
+    font-size: 20px;
+    font-weight: 600;
+}

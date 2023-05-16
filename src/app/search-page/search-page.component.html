@@ -1,0 +1,121 @@
+<form class="example-form">
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Search Text</mat-label>
+    <input
+      matInput
+      #searchInput
+      (keyup)="handleSearchJsonData($event, searchInput.value)"
+      placeholder="Search"
+    />
+  </mat-form-field>
+  <button
+    mat-raised-button
+    (click)="handleSearchJsonData($event, searchInput.value)"
+    class="searchButton"
+    color="primary"
+  >
+    Search
+    <!-- <mat-icon class="buttonIcon">search</mat-icon> -->
+  </button>
+</form>
+
+<div *ngIf="isLoading" style="margin-top: 50px">
+  <div class="loader"></div>
+</div>
+
+<div *ngIf="!isLoading">
+  <form class="example-Table">
+    <mat-list role="list" #searchDoc *ngFor="let document of pagedDocuments">
+      <!-- <div *ngIf="document"> -->
+      <mat-list-item
+        style="height: auto"
+        role="listitem"
+        class="list-item"
+        (click)="onItemClick(document.url)"
+      >
+        <div style="display: flex; margin-top: -28px; margin-bottom: 2px">
+          <div style="flex: 1; flex-basis: 5%">
+            <div
+              style="
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin: auto;
+              "
+            >
+              <img
+                src="{{ document.image }}"
+                alt="image"
+                style="
+                  border-radius: 50%;
+                  height: 40px;
+                  width: 40px;
+                  margin: auto; /* center horizontally */
+                  display: block; /* remove default inline spacing */
+                  position: absolute; /* position relative to parent */
+                  top: 50%; /* position at vertical center */
+                  transform: translateY(-45%); /* adjust position */
+                "
+              />
+            </div>
+          </div>
+          <div style="flex: 1; flex-basis: 93%">
+            <span matListItemTitle>
+         
+              <span *ngFor="let partsObject of hightlightText(searchInput.value.toLowerCase().split(' '),document.title)">
+                <span *ngIf="partsObject.flag" style="color:#3f51b5; font-weight: bold; display:inline-block; margin-right:0">
+                  {{partsObject.part}}{{" "}}
+                </span>
+                
+                <span *ngIf="!partsObject.flag" style="display:inline-block; margin-right:0">
+                  {{partsObject.part}}{{" "}}
+                </span>
+              </span>
+
+            </span>            
+            <span matListItemLine style="white-space: pre-wrap; margin-bottom: 5px">
+              <span *ngFor="let partsObject of hightlightText(searchInput.value.toLowerCase().split(' '),document.description)">
+                <span *ngIf="partsObject.flag" style="color:#3f51b5; font-weight: bold; display:inline-block;">
+                  {{partsObject.part}}
+                </span>
+                            
+                <span *ngIf="!partsObject.flag" style="display:inline-block;margin-right:0;margin-left: 0;">
+                  {{partsObject.part}}
+                </span>
+              </span>
+            </span>
+            
+            >
+          </div>
+        </div>
+
+      </mat-list-item>
+      <mat-divider class="divider"></mat-divider>
+      <!-- </div> -->
+    </mat-list>
+  </form>
+
+  <div *ngIf="!resultNotFoundBox">
+    <mat-paginator
+      class="paginator"
+      [length]="pageLength"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="onPageChange($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="resultNotFoundBox">
+  <div class="cardDiv">
+    <i class="material-icons" style="font-size: 52px">
+      sentiment_very_dissatisfied</i
+    >
+    <h3 class="text">
+      Sorry! No result found for:<b>{{ searchInput.value }}</b>
+    </h3>
+    <h4 class="subText">Please try using other words.</h4>
+  </div>
+</div>
