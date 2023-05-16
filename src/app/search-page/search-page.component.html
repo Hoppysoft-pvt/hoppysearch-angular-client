@@ -61,31 +61,26 @@
           </div>
           <div style="flex: 1; flex-basis: 93%">
             <span matListItemTitle>
-         
-              <span *ngFor="let partsObject of hightlightText(searchInput.value.toLowerCase().split(' '),document.title)">
-                <span *ngIf="partsObject.flag" style="color:#3f51b5; font-weight: bold; display:inline-block; margin-right:0">
-                  {{partsObject.part}}{{" "}}
-                </span>
-                
-                <span *ngIf="!partsObject.flag" style="display:inline-block; margin-right:0">
-                  {{partsObject.part}}{{" "}}
-                </span>
-              </span>
+              <ng-container *ngFor="let partsObject of hightlightText(searchInput.value.toLowerCase().split(' '), document.title)">
+                <ng-container *ngIf="partsObject.flag; else nonHighlighted">
+                  <span style="color:#3f51b5; font-weight: bold; white-space: nowrap;">{{ partsObject.part }}</span>
+                </ng-container>
+                <ng-template #nonHighlighted>
+                  <span style="white-space: nowrap;">{{ partsObject.part }}</span>
+                </ng-template>
+              </ng-container>                        
+            </span>   
 
-            </span>            
-            <span matListItemLine style="white-space: pre-wrap; margin-bottom: 5px">
-              <span *ngFor="let partsObject of hightlightText(searchInput.value.toLowerCase().split(' '),document.description)">
-                <span *ngIf="partsObject.flag" style="color:#3f51b5; font-weight: bold; display:inline-block;">
-                  {{partsObject.part}}
-                </span>
-                            
-                <span *ngIf="!partsObject.flag" style="display:inline-block;margin-right:0;margin-left: 0;">
-                  {{partsObject.part}}
-                </span>
-              </span>
+            <span matListItemLine style="white-space: pre-line; margin-bottom: 5px">
+              <ng-container *ngFor="let partsObject of hightlightText(searchInput.value.toLowerCase().split(' '), document.description)">
+                <ng-container *ngIf="partsObject.flag; else nonHighlighted">
+                  <span style="color:#3f51b5; font-weight: bold;">{{ partsObject.part }}</span>
+                </ng-container>
+                <ng-template #nonHighlighted>
+                  <span>{{ partsObject.part }}</span>
+                </ng-template>
+              </ng-container>
             </span>
-            
-            >
           </div>
         </div>
 

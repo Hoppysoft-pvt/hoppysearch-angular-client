@@ -22,7 +22,7 @@ export class AppComponent {
   
   props = {
     indexId: 'jq0c0b',
-    apiKey: 'hs_1osvvh7d1l3zy3qa',
+    apiKey: 'hs_2d1vkth26fpt4ngw',
     iconURL: 'image',
     targetURL: 'url',
     primaryText: 'title',
