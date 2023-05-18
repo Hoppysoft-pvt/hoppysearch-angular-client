@@ -1,13 +1,10 @@
 import {
   Component,
-  ViewChild,
-  ElementRef,
-  Injectable,
   OnInit,
   Input,
 } from '@angular/core';
 import axios from 'axios';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-search-page',
@@ -33,40 +30,20 @@ export class SearchPageComponent implements OnInit {
     onTypeSearch: false,
   };
 
-  // constructor() {
-  //   this.hoppySearchConfig = {
-  //     indexId: '',
-  //     apiKey: '',
-  //     iconURL: '',
-  //     targetURL: '',
-  //     primaryText: '',
-  //     secondaryText: '',
-  //     onTypeSearch: false,
-  //   };
-  // }
-
-  // const highlightText = (text) => {
-  //   const regex = new RegExp(`(${highlightedWords.join("|")})`, "gi");
-  //   const parts = text.split(regex);
-
-  //   return parts.map((part, i) =>
-  //     highlightedWords.includes(part.toLowerCase()) ? (
-  //       <span key={i} style={{color:"#3f51b5", fontWeight: "bold"}}>
-  //         {part}
-  //       </span>
-  //     ) : (
-  //       <React.Fragment key={i}>{part}</React.Fragment>
-  //     )
-  //   );
-  // };
+  throwMandatoryAttributeError(name: any, value: any) {
+    if (!value) {
+      throw new Error(`${name} is a mandatory attribute for HSSearchPage`);
+    }
+    console.log(value);
+  }
+  constructor() {
+    console.log(this.hoppySearchConfig.indexId);
+  }
 
   hightlightText(highlightedWords: string[], text: string) {
     const regex = new RegExp(`(${highlightedWords.join('|')})`, 'gi');
     const parts = text.split(regex);
-    console.log(parts)
-    console.log(highlightedWords,"highlightedWords")
-    console.log(text,"text")
-   return parts.map((part, i) =>
+    return parts.map((part, i) =>
       highlightedWords.includes(part.toLocaleLowerCase())
         ? {
             flag: true,
@@ -93,6 +70,7 @@ export class SearchPageComponent implements OnInit {
   pageSize: any = 10;
   pageLength: number = 0;
   resultNotFoundBox: boolean = false;
+  serverErrorMassage: boolean = false;
 
   onPageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
@@ -109,8 +87,8 @@ export class SearchPageComponent implements OnInit {
     event.preventDefault();
     this.isLoading = true;
     const URL = val
-      ? `https://${this.hoppySearchConfig.indexId}.hoppysearch.com/v1/search?q=${val}&pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
-      : `https://${this.hoppySearchConfig.indexId}.hoppysearch.com/v1/search?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`;
+      ? `https://${this.hoppySearchConfig?.indexId}.hoppysearch.com/v1/search?q=${val}&pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
+      : `https://${this.hoppySearchConfig?.indexId}.hoppysearch.com/v1/search?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`;
     const headers = {
       Authorization: this.hoppySearchConfig.apiKey,
     };
@@ -130,6 +108,7 @@ export class SearchPageComponent implements OnInit {
       })
       .catch((error) => {
         this.isLoading = false;
+        this.serverErrorMassage = true;
         console.error(error);
       });
   }
@@ -150,10 +129,24 @@ export class SearchPageComponent implements OnInit {
       })
       .catch((error) => {
         this.isLoading = false;
+        this.serverErrorMassage = true;
         console.error(error);
       });
   }
   ngOnInit() {
     this.handleFirstTimeSearchJsonData();
+    this.throwMandatoryAttributeError(
+      'indexId',
+      this.hoppySearchConfig.indexId
+    );
+    this.throwMandatoryAttributeError('apiKey', this.hoppySearchConfig.apiKey);
+    this.throwMandatoryAttributeError(
+      'targetURL',
+      this.hoppySearchConfig.targetURL
+    );
+    this.throwMandatoryAttributeError(
+      'primaryText',
+      this.hoppySearchConfig.primaryText
+    );
   }
 }
