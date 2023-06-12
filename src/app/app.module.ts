@@ -11,6 +11,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { HighlightPipe } from './highlight.pipe';
 
 import {MatCardModule} from '@angular/material/card';
 
@@ -19,6 +20,7 @@ import {MatCardModule} from '@angular/material/card';
   declarations: [
     AppComponent,
     SearchPageComponent,
+    HighlightPipe,
   ],
   imports: [
     BrowserModule,
