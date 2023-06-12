@@ -72,15 +72,27 @@ export class SearchPageComponent implements OnInit {
   resultNotFoundBox: boolean = false;
   serverErrorMassage: boolean = false;
 
-  onPageChange(event: PageEvent) {
+  onPageChange(event: PageEvent, val: any) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     const startIndex = event.pageIndex * event.pageSize;
     const endIndex = startIndex + event.pageSize;
-    this.pagedDocuments = this.searchResultDocuments.slice(
-      startIndex,
-      endIndex
-    );
+
+    const headers = {
+      Authorization: this.hoppySearchConfig.apiKey,
+    };
+    const URL = val
+      ? `https://${this.hoppySearchConfig?.indexId}.hoppysearch.com/v1/search?q=${val}&pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
+      : `https://${this.hoppySearchConfig?.indexId}.hoppysearch.com/v1/search?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`;
+     axios
+     .get(URL, { headers: headers })
+     .then((response) => {
+      this.pagedDocuments = response.data?.documents;
+    })
+     .catch((error) => {
+       console.error(error);
+     });
+
   }
 
   async handleSearchJsonData(event: Event, val: any) {
