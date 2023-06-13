@@ -40,21 +40,21 @@ export class SearchPageComponent implements OnInit {
     console.log(this.hoppySearchConfig.indexId);
   }
 
-  hightlightText(highlightedWords: string[], text: string) {
-    const regex = new RegExp(`(${highlightedWords.join('|')})`, 'gi');
-    const parts = text.split(regex);
-    return parts.map((part, i) =>
-      highlightedWords.includes(part.toLocaleLowerCase())
-        ? {
-            flag: true,
-            part,
-          }
-        : {
-            flag: false,
-            part,
-          }
-    );
-  }
+  // hightlightText(highlightedWords: string[], text: string) {
+  //   const regex = new RegExp(`(${highlightedWords.join('|')})`, 'gi');
+  //   const parts = text.split(regex);
+  //   return parts.map((part, i) =>
+  //     highlightedWords.includes(part.toLowerCase())
+  //       ? {
+  //           flag: true,
+  //           part,
+  //         }
+  //       : {
+  //           flag: false,
+  //           part,
+  //         }
+  //   );
+  // }
 
   onItemClick(item: string) {
     console.log(`Clicked on item: ${item}`);

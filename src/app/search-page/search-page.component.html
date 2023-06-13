@@ -69,43 +69,17 @@
           <div style="flex-basis: 93%">
             <div style="margin-left: 20px">
               <span matListItemTitle>
-                <ng-container
-                  *ngFor="let partsObject of hightlightText(searchInput.value.toLowerCase().split(' '),  document?.[hoppySearchConfig.primaryText])"
-                >
-                  <ng-container *ngIf="partsObject.flag; else nonHighlighted">
-                    <span
-                      style="
-                        color: #5971f6;
-                        font-weight: bold;
-                        white-space: nowrap;
-                      "
-                      >{{ partsObject.part }}</span
-                    >
-                  </ng-container>
-                  <ng-template #nonHighlighted>
-                    <span style="white-space: nowrap">{{
-                      partsObject.part
-                    }}</span>
-                  </ng-template>
-                </ng-container>
+                <span 
+                  [innerHTML]="document?.[hoppySearchConfig.primaryText] | highlight: searchInput.value.toLowerCase().split(' ')"
+                ></span>&nbsp;
               </span>
-
               <span
                 matListItemLine
                 style="white-space: pre-line; margin-bottom: 5px"
               >
-                <ng-container
-                  *ngFor="let partsObject of hightlightText(searchInput.value.toLowerCase().split(' '), document?.[hoppySearchConfig.secondaryText])"
-                >
-                  <ng-container *ngIf="partsObject.flag; else nonHighlighted">
-                    <span style="color: #5971f6; font-weight: bold">{{
-                      partsObject.part
-                    }}</span>
-                  </ng-container>
-                  <ng-template #nonHighlighted>
-                    <span>{{ partsObject.part }}</span>
-                  </ng-template>
-                </ng-container>
+                <span
+                  [innerHTML]="document?.[hoppySearchConfig.secondaryText] | highlight: searchInput.value.toLowerCase().split(' ')"
+                ></span>&nbsp;
               </span>
             </div>
           </div>
